@@ -1,9 +1,17 @@
 import { Button } from "@/components/ui/button"
+import Terminal from "@/components/terminal/terminal"
+import { cn } from "@/lib/utils"
 
-export default function Home() {
+interface Props {
+  directions: String[]
+}
+export default function Home( {directions}:Props) {
   return (
-    <div>
-      <Button>Click me</Button>
+    
+    <div className="">
+      <Terminal/>
     </div>
+
+    
   )
 }
