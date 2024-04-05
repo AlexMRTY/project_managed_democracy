@@ -1,34 +1,36 @@
 "use client"
 
-import { cn } from "@/lib/utils"
-import Image from "next/image"
+import { Queue } from "@/lib/queue"
+import CurrentStratagem from "./current-stratagem";
+import UpcommingStratagems from "./upcomming-stratagems";
 
-const stratagemsQueue = [
+const stratagems = [
   "./stratagems/EMSmortaricon.svg",
-  "./stratagems/EMSmortaricon.svg",
-  "./stratagems/EMSmortaricon.svg",
-  "./stratagems/EMSmortaricon.svg",
-  "./stratagems/EMSmortaricon.svg",
-  "./stratagems/EMSmortaricon.svg",
+  "./stratagems/APW-1icon.svg",
+  "./stratagems/OrbitalPrecisionicon.svg",
+  "./stratagems/EagleAirstrikeicon.svg",
+  "./stratagems/Missilesentryicon.svg",
+  "./stratagems/OrbitalEMSicon.svg",
 ]
 
+const stratagemsQueue = new Queue<string>();
+stratagems.map((item) => {
+  stratagemsQueue.enqueue(item);
+})
+
 export default function StratagemHeroes() {
+  let cur:string | undefined;
+  let upcomming:string[] | undefined= [];
+
+  if (!stratagemsQueue.isEmpty()) {
+    cur = stratagemsQueue.dequeue();
+    upcomming = stratagemsQueue.peekQueue();
+  }
   return (
-    <section className="flex">
-      {stratagemsQueue.map((s, idx) => {
-        const size = idx == 0 ? "90" : "65"
-        return (
-          <fieldset
-            key={idx}
-            className={cn(
-              "w-28 h-28 flex items-center justify-center",
-              idx == 0 && "border-[3px] border-yellow-400 border-solid"
-            )}
-          >
-            <Image src={s} width={size} height={size} alt="icon" />
-          </fieldset>
-        )
-      })}
+    <section className="flex justify-center">
+      <CurrentStratagem stratagem={cur}/>
+      <UpcommingStratagems stratagemQueue={upcomming}/>
+      
     </section>
   )
 }

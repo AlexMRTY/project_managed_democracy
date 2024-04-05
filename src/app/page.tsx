@@ -11,8 +11,8 @@ export default function Home( {directions}:Props) {
   return (
     <div>
       <ModeToggle />
-      <Terminal/>
       <StratagemHeroes />
+      <Terminal/>
     </div>
 
     
