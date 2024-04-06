@@ -10,8 +10,7 @@ interface Props {
 export default function Home( {directions}:Props) {
   return (
     <div>
-      <ModeToggle />
-      <StratagemHeroes />
+      
       <Terminal/>
     </div>
 
